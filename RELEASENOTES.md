@@ -9,7 +9,6 @@
 - **File Browser Integration**: Easily add any process to the kill list with a native Windows file browser.
 - **Start with Windows**: Native registry integration to sit quietly in your system tray on boot.
 - **Single Instance Protection**: Ensures only one copy of the tool runs at a time.
-- **Robust Error Logging**: Automatically generates `crash_report.log` for troubleshooting.
 
 ### ⚡ Performance
 - Optimized startup sequence for instant window rendering.
