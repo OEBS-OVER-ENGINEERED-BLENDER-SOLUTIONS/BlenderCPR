@@ -4,6 +4,9 @@ import threading
 import sys
 import os
 import argparse
+import ctypes
+import traceback
+import datetime
 from gui import BlenderCPRApp
 from logic import kill_targets
 from config import ConfigManager
@@ -92,4 +95,19 @@ def main():
     app.mainloop()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        # Create a crash log file
+        log_path = "crash_report.log"
+        with open(log_path, "w") as f:
+            f.write(f"Blender CPR Crash Report - {datetime.datetime.now()}\n")
+            f.write("="*50 + "\n")
+            f.write(traceback.format_exc())
+        
+        # Also try to show a message box if possible via ctypes
+        try:
+            ctypes.windll.user32.MessageBoxW(0, f"Blender CPR has crashed.\nA log has been saved to: {os.path.abspath(log_path)}\n\nError: {str(e)}", "Critical Error", 0x10)
+        except:
+            pass
+        sys.exit(1)
