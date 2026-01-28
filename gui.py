@@ -234,7 +234,7 @@ class BlenderCPRApp(ctk.CTk):
         self.btn_github_o.grid(row=0, column=1, padx=10)
 
         # Version
-        self.lbl_version = ctk.CTkLabel(self.tab_about, text="v2.1.0", font=("Roboto", 10), text_color="gray")
+        self.lbl_version = ctk.CTkLabel(self.tab_about, text="v1.0.0", font=("Roboto", 10), text_color="gray")
         self.lbl_version.grid(row=3, column=0, pady=(40, 0))
 
     def remove_process(self, target):

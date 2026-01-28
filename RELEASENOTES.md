@@ -1,24 +1,20 @@
-# 🏥 Blender CPR v2.1.0 Release Notes
+# 🏥 Blender CPR v1.0.0 Official Release
 
-## [2.1.0] - 2026-01-28
+## [1.0.0] - 2026-01-28
 
-### ✨ Improved (UI & UX Polish)
-- **File Browser Integration**: No more manual typing! Added a "Browse" button in Settings to easily pick your `.exe` files.
-- **Intuitive "Add" Layout**: Refactored the management section into a clean horizontal bar with clear icons.
-- **Visual Cues**:
-    - Added a **Plus Icon (+)** for the Add button.
-    - Added a **Folder Icon** for the Browse button.
-    - Made the **Remove (X)** buttons red for better visibility and safer interaction.
-- **Enhanced Spacing**: Increased the window height and adjusted padding for a more premium, less cramped feel.
+The first official release of **Blender CPR**, the robust process rescuer for Blender artists.
 
-### 🚀 Legacy Features (v2.0.0)
-- **Modern GUI (CustomTkinter)**: Sleek dark-mode dashboard.
-- **One-Click Rescue**: Instantly terminates hung Blender processes and tablet drivers.
-- **Smart Tablet Reset**: Wacom, Huion, and XP-Pen driver support.
-- **Start with Windows**: Native registry integration for background operation.
+### ✨ Key Features
+- **One-Click Rescue**: Instantly terminates stuck Blender processes and frees drawing tablet drivers.
+- **Smart Tablet Reset**: Dedicated support for Wacom, Huion, and XP-Pen drivers.
+- **Custom Kill List**: Add any application to the rescue list with an easy "+" and file browser.
+- **Single Instance Protection**: Ensures only one copy of the tool runs at a time.
+- **Windows Integration**: Option to start with Windows and hide in the system tray.
+- **Modern Dashboard**: Built with CustomTkinter for a premium dark-mode experience.
+- **Error Logging**: Automatic crash reports to help troubleshoot complex system freezes.
 
-### 🛠️ Fixed
-- Improved safety when adding processes (automatically ensures `.exe` extension).
+### 🚀 Developer
+Built by **Erisol3d** under **Over Engineered Blender Solutions (OEBS)**.
 
 ---
-*Created by Erisol3d*
+*Portable version included in ZIP. No installation required.*
