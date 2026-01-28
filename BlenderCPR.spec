@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('icon.png', '.'), ('add.png', '.'), ('browse.png', '.'), ('J:\\Python Packages\\customtkinter', 'customtkinter')],
+    datas=[('icon.png', '.'), ('icon_add.png', '.'), ('icon_browse.png', '.'), ('J:\\Python Packages\\customtkinter', 'customtkinter')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

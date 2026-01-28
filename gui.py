@@ -30,8 +30,8 @@ class BlenderCPRApp(ctk.CTk):
         self.iconbitmap(default=icon_path)
 
         # Load UI Icons
-        self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "add.png")), size=(20, 20))
-        self.browse_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "browse.png")), size=(20, 20))
+        self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_add.png")), size=(20, 20))
+        self.browse_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_browse.png")), size=(20, 20))
 
         # Theme
         ctk.set_appearance_mode(self.config.data.get("theme", "Dark"))
