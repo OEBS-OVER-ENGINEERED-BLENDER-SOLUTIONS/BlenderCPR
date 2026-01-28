@@ -56,6 +56,17 @@ def run_tray(icon):
     icon.run()
 
 def main():
+    # Single Instance Check (Windows Mutex)
+    mutex_name = "Global\\BlenderCPR_SingleInstance_Mutex"
+    mutex = ctypes.windll.kernel32.CreateMutexW(None, False, mutex_name)
+    last_error = ctypes.windll.kernel32.GetLastError()
+    
+    if last_error == 183: # ERROR_ALREADY_EXISTS
+        # If we are starting with --tray, just exit silently.
+        # Otherwise, we could try to find the existing window and show it, 
+        # but for now, simple exit is safest.
+        sys.exit(0)
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--tray", action="store_true", help="Start minimized to tray")
     args = parser.parse_args()
