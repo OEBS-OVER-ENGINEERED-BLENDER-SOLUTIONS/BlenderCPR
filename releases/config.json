@@ -1,0 +1,17 @@
+{
+    "start_with_windows": true,
+    "theme": "Dark",
+    "targets": [
+        "blender.exe",
+        "blender-launcher.exe",
+        "Wacom_Tablet.exe",
+        "Wacom_TabletUser.exe",
+        "WacomHost.exe",
+        "HuionTablet.exe",
+        "PenTablet.exe",
+        "TabletDriver.exe",
+        "Huion Tablet.exe",
+        "PentabletService.exe",
+        "PentabletHID.exe"
+    ]
+}

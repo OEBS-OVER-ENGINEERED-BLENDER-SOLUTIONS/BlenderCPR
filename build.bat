@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onefile --windowed --icon "icon.png" --name "BlenderCPR" --add-data "icon.png;." --add-data "J:\Python Packages\customtkinter;customtkinter" --distpath "releases" --clean main.py
