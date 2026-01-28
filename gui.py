@@ -5,6 +5,7 @@ from config import ConfigManager
 import threading
 import os
 import sys
+from PIL import Image
 
 class BlenderCPRApp(ctk.CTk):
     def __init__(self, tray_icon=None):
@@ -15,15 +16,21 @@ class BlenderCPRApp(ctk.CTk):
 
         # Window Setup
         self.title("Blender CPR")
-        self.geometry("600x450")
+        self.geometry("600x550") # Slightly taller for better spacing
         self.resizable(False, False)
         
-        # Determine Icon Path for Window Icon
+        # Determine Icon Path
         if hasattr(sys, '_MEIPASS'):
-            icon_path = os.path.join(sys._MEIPASS, "icon.png")
+            self.base_path = sys._MEIPASS
         else:
-            icon_path = "icon.png"
+            self.base_path = os.path.dirname(os.path.abspath(__file__))
+
+        icon_path = os.path.join(self.base_path, "icon.png")
         self.iconbitmap(default=icon_path)
+
+        # Load UI Icons
+        self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "add.png")), size=(20, 20))
+        self.browse_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "browse.png")), size=(20, 20))
 
         # Theme
         ctk.set_appearance_mode(self.config.data.get("theme", "Dark"))
@@ -103,24 +110,60 @@ class BlenderCPRApp(ctk.CTk):
             command=self.toggle_startup,
             variable=self.var_startup
         )
-        self.sw_startup.grid(row=0, column=0, pady=20, padx=20, sticky="w")
+        self.sw_startup.grid(row=0, column=0, pady=(10, 20), padx=20, sticky="w")
 
-        # Process List Label
-        self.lbl_list = ctk.CTkLabel(self.tab_settings, text="Target Processes (Kill List):", anchor="w")
-        self.lbl_list.grid(row=1, column=0, padx=20, pady=(10, 0), sticky="w")
+        # --- NEW Management Section ---
+        self.mgmt_frame = ctk.CTkFrame(self.tab_settings, fg_color="transparent")
+        self.mgmt_frame.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
+        self.mgmt_frame.grid_columnconfigure(0, weight=1)
 
-        # Scrollable Frame for items
-        self.scroll_frame = ctk.CTkScrollableFrame(self.tab_settings, height=200)
-        self.scroll_frame.grid(row=2, column=0, padx=20, pady=10, sticky="ew")
+        self.lbl_mgmt = ctk.CTkLabel(self.mgmt_frame, text="Add New Process:", font=("Roboto", 14, "bold"))
+        self.lbl_mgmt.grid(row=0, column=0, columnspan=3, sticky="w", pady=(0, 5))
+
+        self.entry_new = ctk.CTkEntry(self.mgmt_frame, placeholder_text="e.g. godot.exe", height=35)
+        self.entry_new.grid(row=1, column=0, padx=(0, 5), sticky="ew")
+        
+        self.btn_browse = ctk.CTkButton(
+            self.mgmt_frame, 
+            text="", 
+            image=self.browse_img, 
+            width=40, 
+            height=35, 
+            fg_color="#434343", 
+            hover_color="#555555",
+            command=self.browse_file
+        )
+        self.btn_browse.grid(row=1, column=1, padx=5)
+        
+        self.btn_add = ctk.CTkButton(
+            self.mgmt_frame, 
+            text="Add to List", 
+            image=self.add_img, 
+            compound="left",
+            width=120, 
+            height=35,
+            command=self.add_process
+        )
+        self.btn_add.grid(row=1, column=2, padx=(5, 0))
+
+        # --- List Section ---
+        self.lbl_list = ctk.CTkLabel(self.tab_settings, text="Current Kill List:", anchor="w")
+        self.lbl_list.grid(row=2, column=0, padx=20, pady=(20, 0), sticky="w")
+
+        self.scroll_frame = ctk.CTkScrollableFrame(self.tab_settings, height=220)
+        self.scroll_frame.grid(row=3, column=0, padx=20, pady=10, sticky="ew")
         
         self.refresh_process_list()
 
-        # Add New Item
-        self.entry_new = ctk.CTkEntry(self.tab_settings, placeholder_text="godot.exe")
-        self.entry_new.grid(row=3, column=0, padx=20, pady=(10, 0), sticky="ew")
-        
-        self.btn_add = ctk.CTkButton(self.tab_settings, text="Add Process", command=self.add_process)
-        self.btn_add.grid(row=4, column=0, padx=20, pady=10, sticky="ew")
+    def browse_file(self):
+        file_path = tk.filedialog.askopenfilename(
+            title="Select Application",
+            filetypes=[("Executable Files", "*.exe"), ("All Files", "*.*")]
+        )
+        if file_path:
+            filename = os.path.basename(file_path)
+            self.entry_new.delete(0, 'end')
+            self.entry_new.insert(0, filename)
 
     def refresh_process_list(self):
         # Clear existing
@@ -135,12 +178,15 @@ class BlenderCPRApp(ctk.CTk):
             lbl = ctk.CTkLabel(f, text=target)
             lbl.pack(side="left", padx=10)
             
-            btn = ctk.CTkButton(f, text="X", width=30, fg_color="transparent", border_width=1, command=lambda t=target: self.remove_process(t))
+            btn = ctk.CTkButton(f, text="X", width=30, fg_color="transparent", border_width=1, text_color="red", command=lambda t=target: self.remove_process(t))
             btn.pack(side="right", padx=5)
 
     def add_process(self):
         new_p = self.entry_new.get().strip()
         if new_p:
+            if not new_p.lower().endswith(".exe"):
+                new_p += ".exe"
+            
             targets = self.config.get_targets()
             if new_p not in targets:
                 targets.append(new_p)

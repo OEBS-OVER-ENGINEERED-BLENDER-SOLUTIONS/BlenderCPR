@@ -8,10 +8,11 @@ A modern, lightweight Windows utility to force-kill stuck Blender processes and 
 
 - **Modern UI**: Clean dark-mode dashboard built with `customtkinter`.
 - **One-Click Rescue**: Instantly terminates "zombie" Blender processes and common tablet drivers.
-- **Smart Tablet Reset**: Automatically resets Wacom, Huion, and XP-Pen drivers which often "hook" into crashes.
+- **Smart Tablet Reset**: Automatically resets Wacom, Huion, and XP-Pen drivers.
+- **File Browser Integration**: Browse for `.exe` files instead of typing process names manually.
 - **Start with Windows**: Customizable option to have the tool always ready in your system tray.
 - **Custom Kill List**: Add any process name to the list to customize what gets "rescued".
-- **Minimized to Tray**: Sits quietly in the background without cluttering your taskbar.
+- **Modern Icons**: Intuitive "+" and browse icons for easier navigation.
 
 ## 🚀 Installation & Usage
 
