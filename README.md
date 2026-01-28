@@ -14,6 +14,17 @@ A modern, lightweight Windows utility to force-kill stuck Blender processes and 
 - **Custom Kill List**: Add any process name to the list to customize what gets "rescued".
 - **Modern Icons**: Intuitive "+" and browse icons for easier navigation.
 
+## 🛡️ Security & False Positives
+
+Because Blender CPR is an **unsigned executable** that performs system-level actions (killing processes and modifying Registry for startup), some antivirus scanners (like Windows Defender or VirusTotal) may flag it as suspicious.
+
+**This is a false positive.**
+
+Since the project is open-source, you can:
+1. Review the Python source code yourself.
+2. Build the executable from source using the provided `build.bat`.
+3. Check the file properties for official metadata (Developer: OEBS).
+
 ## 🚀 Installation & Usage
 
 ### Portable Version
