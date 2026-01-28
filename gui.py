@@ -6,6 +6,7 @@ import threading
 import os
 import sys
 from PIL import Image
+import webbrowser
 
 class BlenderCPRApp(ctk.CTk):
     def __init__(self, tray_icon=None):
@@ -45,9 +46,11 @@ class BlenderCPRApp(ctk.CTk):
         
         self.tab_dashboard = self.tab_view.add("Dashboard")
         self.tab_settings = self.tab_view.add("Settings")
+        self.tab_about = self.tab_view.add("About")
 
         self.setup_dashboard()
         self.setup_settings()
+        self.setup_about()
         
         # Override Close Button to Minimize to Tray
         self.protocol("WM_DELETE_WINDOW", self.on_close_window)
@@ -193,6 +196,46 @@ class BlenderCPRApp(ctk.CTk):
                 self.config.set_targets(targets)
                 self.refresh_process_list()
                 self.entry_new.delete(0, 'end')
+
+    def setup_about(self):
+        self.tab_about.grid_columnconfigure(0, weight=1)
+
+        # Developer Title
+        self.lbl_dev_title = ctk.CTkLabel(self.tab_about, text="About the Developer", font=("Roboto", 20, "bold"))
+        self.lbl_dev_title.grid(row=0, column=0, pady=(30, 10))
+
+        # Description
+        desc_text = (
+            "Over Engineered Blender Solutions (OEBS)\n\n"
+            "Providing robust, specialized tools and automations\n"
+            "tailored for the Blender ecosystem and creative workflows."
+        )
+        self.lbl_desc = ctk.CTkLabel(self.tab_about, text=desc_text, font=("Roboto", 13), justify="center")
+        self.lbl_desc.grid(row=1, column=0, pady=20, padx=40)
+
+        # Links Frame
+        self.links_frame = ctk.CTkFrame(self.tab_about, fg_color="transparent")
+        self.links_frame.grid(row=2, column=0, pady=20)
+
+        self.btn_github_p = ctk.CTkButton(
+            self.links_frame, 
+            text="Personal GitHub", 
+            command=lambda: webbrowser.open("https://github.com/Erisol254"),
+            width=150
+        )
+        self.btn_github_p.grid(row=0, column=0, padx=10)
+
+        self.btn_github_o = ctk.CTkButton(
+            self.links_frame, 
+            text="OEBS GitHub", 
+            command=lambda: webbrowser.open("https://github.com/OEBS-OVER-ENGINEERED-BLENDER-SOLUTIONS"),
+            width=150
+        )
+        self.btn_github_o.grid(row=0, column=1, padx=10)
+
+        # Version
+        self.lbl_version = ctk.CTkLabel(self.tab_about, text="v2.1.0", font=("Roboto", 10), text_color="gray")
+        self.lbl_version.grid(row=3, column=0, pady=(40, 0))
 
     def remove_process(self, target):
         targets = self.config.get_targets()
