@@ -1,20 +1,23 @@
-# 🏥 Blender CPR v1.0.0 Official Release
+# 🏥 Blender CPR v1.0.0 Release Notes
 
-## [1.0.0] - 2026-01-28
+## [1.0.0] - 2026-01-28 - Official Launch
 
-The first official release of **Blender CPR**, the robust process rescuer for Blender artists.
-
-### ✨ Key Features
-- **One-Click Rescue**: Instantly terminates stuck Blender processes and frees drawing tablet drivers.
-- **Smart Tablet Reset**: Dedicated support for Wacom, Huion, and XP-Pen drivers.
-- **Custom Kill List**: Add any application to the rescue list with an easy "+" and file browser.
+### 🚀 Key Features
+- **One-Click Rescue**: Instantly terminates hung Blender processes and drawing tablet drivers.
+- **Modern Dashboard**: Sleek, high-performance UI built for Windows.
+- **Smart Tablet Reset**: Integrated support for Wacom, Huion, and XP-Pen drivers.
+- **File Browser Integration**: Easily add any process to the kill list with a native Windows file browser.
+- **Start with Windows**: Native registry integration to sit quietly in your system tray on boot.
 - **Single Instance Protection**: Ensures only one copy of the tool runs at a time.
-- **Windows Integration**: Option to start with Windows and hide in the system tray.
-- **Modern Dashboard**: Built with CustomTkinter for a premium dark-mode experience.
-- **Error Logging**: Automatic crash reports to help troubleshoot complex system freezes.
+- **Robust Error Logging**: Automatically generates `crash_report.log` for troubleshooting.
 
-### 🚀 Developer
-Built by **Erisol3d** under **Over Engineered Blender Solutions (OEBS)**.
+### ⚡ Performance
+- Optimized startup sequence for instant window rendering.
+- Efficient process scanning logic.
+
+### 🎨 Visuals
+- Updated official high-resolution icon.
+- Improved layout with intuitive icons for adding and browsing processes.
 
 ---
-*Portable version included in ZIP. No installation required.*
+*Developed by Erisol3d | Over Engineered Blender Solutions (OEBS)*

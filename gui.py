@@ -1,6 +1,5 @@
 import customtkinter as ctk
-import tkinter as tk
-from tkinter import filedialog
+import tkinter as tk # For some constants if needed
 from logic import kill_targets
 from config import ConfigManager
 import threading
@@ -27,12 +26,12 @@ class BlenderCPRApp(ctk.CTk):
         else:
             self.base_path = os.path.dirname(os.path.abspath(__file__))
 
-        icon_path = os.path.join(self.base_path, "icon.png")
-        self.iconbitmap(default=icon_path)
+        icon_path = os.path.join(self.base_path, "icon.ico")
+        self.iconbitmap(icon_path)
 
-        # Load UI Icons
-        self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_add.png")), size=(20, 20))
-        self.browse_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_browse.png")), size=(20, 20))
+        # Defer loading UI icons to speed up startup
+        self.add_img = None
+        self.browse_img = None
 
         # Theme
         ctk.set_appearance_mode(self.config.data.get("theme", "Dark"))
@@ -104,6 +103,12 @@ class BlenderCPRApp(ctk.CTk):
             self.log("No stuck processes found.")
 
     def setup_settings(self):
+        # Initialize icons only when needed
+        if not self.add_img:
+            self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_add.png")), size=(20, 20))
+        if not self.browse_img:
+            self.browse_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "icon_browse.png")), size=(20, 20))
+
         self.tab_settings.grid_columnconfigure(0, weight=1)
 
         # Startup Toggle
