@@ -27,7 +27,8 @@ class BlenderCPRApp(ctk.CTk):
             self.base_path = os.path.dirname(os.path.abspath(__file__))
 
         icon_path = os.path.join(self.base_path, "icon.png")
-        self.iconbitmap(default=icon_path)
+        icon_image = tk.PhotoImage(file=icon_path)
+        self.iconphoto(False, icon_image)
 
         # Load UI Icons
         self.add_img = ctk.CTkImage(Image.open(os.path.join(self.base_path, "add.png")), size=(20, 20))
