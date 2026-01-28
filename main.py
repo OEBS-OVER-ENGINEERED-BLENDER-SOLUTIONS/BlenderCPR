@@ -1,15 +1,25 @@
 import pystray
 from PIL import Image
 import threading
-import sys
 import os
+import sys
 import argparse
 import ctypes
 import traceback
 import datetime
+import logging
 from gui import BlenderCPRApp
 from logic import kill_targets
 from config import ConfigManager
+
+# Configure Logging
+log_file = "activity_log.txt"
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    filemode='a'
+)
 
 ICON_PATH = "icon.png"
 
@@ -96,16 +106,20 @@ def main():
 
 if __name__ == "__main__":
     try:
+        logging.info("Application starting...")
         main()
     except Exception as e:
         # Create a crash log file
-        log_path = "crash_report.log"
+        log_path = "crash_report.txt"
+        error_details = traceback.format_exc()
+        logging.error(f"FATAL CRASH:\n{error_details}")
+        
         with open(log_path, "w") as f:
             f.write(f"Blender CPR Crash Report - {datetime.datetime.now()}\n")
             f.write("="*50 + "\n")
-            f.write(traceback.format_exc())
+            f.write(error_details)
         
-        # Also try to show a message box if possible via ctypes
+        # Also try to show a message box
         try:
             ctypes.windll.user32.MessageBoxW(0, f"Blender CPR has crashed.\nA log has been saved to: {os.path.abspath(log_path)}\n\nError: {str(e)}", "Critical Error", 0x10)
         except:

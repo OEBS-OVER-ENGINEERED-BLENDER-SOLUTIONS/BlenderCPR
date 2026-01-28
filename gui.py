@@ -1,5 +1,6 @@
 import customtkinter as ctk
-import tkinter as tk # For some constants if needed
+import tkinter as tk
+from tkinter import filedialog
 from logic import kill_targets
 from config import ConfigManager
 import threading
