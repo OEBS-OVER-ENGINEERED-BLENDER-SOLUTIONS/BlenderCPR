@@ -11,7 +11,7 @@ from gui import BlenderCPRApp
 from logic import kill_targets
 from config import ConfigManager
 
-ICON_PATH = "icon.png"
+ICON_PATH = "icon.ico"
 
 def create_tray_icon(app):
     """
